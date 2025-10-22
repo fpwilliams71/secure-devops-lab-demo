@@ -1,1 +1,18 @@
+version: 0.2
 
+phases:
+  install:
+    commands:
+      - echo Installing Terraform...
+      - curl -s https://releases.hashicorp.com/terraform/1.8.0/terraform_1.8.0_linux_amd64.zip -o terraform.zip
+      - unzip terraform.zip && mv terraform /usr/local/bin/
+  build:
+    commands:
+      - echo "Initializing Terraform..."
+      - cd terraform
+      - terraform init -input=false
+      - terraform apply -auto-approve
+      - echo "Website deployed!"
+artifacts:
+  files:
+    - '**/*'
